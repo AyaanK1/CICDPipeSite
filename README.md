@@ -1,8 +1,8 @@
 # CI/CD Pipeline: Auto-Deploy Static Site to S3/CloudFront
 
-I built this to learn CI/CD from scratch — before this project I'd never touched GitHub Actions. It's a pipeline that automatically lints and deploys a static site to AWS every time I push to `main`, with no manual deploy steps and no AWS keys sitting in GitHub.
+I built this to learn CI/CD from scratch before this project I'd never touched GitHub Actions. It's a pipeline that automatically lints and deploys a static site to AWS every time I push to `main`, with no manual deploy steps and no AWS keys sitting in GitHub.
 
-**Live site:** `https://<your-cloudfront-domain>.cloudfront.net`
+**Live site:** `https://d3ueo5zpp9er26.cloudfront.net/`
 
 ## What it does
 
@@ -22,7 +22,7 @@ Every push to `main` (that touches `site/**`) does this:
 
 ## Why OIDC instead of access keys
 
-I could've just pasted an AWS access key + secret into GitHub secrets and called it done — that's what most tutorials show. But that means a long-lived credential sits in GitHub forever, and if it ever leaked, it'd be valid until someone noticed and rotated it manually.
+I could've just pasted an AWS access key + secret into GitHub secrets and called it done that's what most tutorials show. But that means a long-lived credential sits in GitHub forever, and if it ever leaked, it'd be valid until someone noticed and rotated it manually.
 
 Instead I set up OIDC federation: GitHub issues a short-lived identity token for each workflow run, AWS trusts that token through an IAM OIDC provider, and grants temporary credentials scoped to just that one job. No AWS secret is ever stored anywhere. Once the job ends, the credentials are gone.
 
