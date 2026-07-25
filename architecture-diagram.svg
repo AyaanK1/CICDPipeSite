@@ -1,0 +1,58 @@
+<svg width="700" height="460" viewBox="0 0 680 460" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>CI/CD pipeline architecture</title>
+<desc>Push to main triggers GitHub Actions: lint, then OIDC auth to AWS, then S3 sync and CloudFront invalidation, serving the live site to users.</desc>
+<style>
+  text { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  .box { fill: #ffffff; stroke: #444441; stroke-width: 1; }
+  .purple { fill: #EEEDFE; stroke: #534AB7; }
+  .teal { fill: #E1F5EE; stroke: #0F6E56; }
+  .gray { fill: #F1EFE8; stroke: #5F5E5A; }
+  .amber { fill: #FAEEDA; stroke: #854F0B; }
+  .th { font-size: 14px; font-weight: 600; fill: #2C2C2A; }
+  .ts { font-size: 12px; fill: #444441; }
+  .arr { stroke: #5F5E5A; stroke-width: 1.5; fill: none; }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<rect x="20" y="20" width="150" height="44" rx="8" class="gray"/>
+<text class="th" x="95" y="46" text-anchor="middle">Push to main</text>
+
+<rect x="20" y="100" width="150" height="56" rx="8" class="purple"/>
+<text class="th" x="95" y="122" text-anchor="middle">Lint (CI)</text>
+<text class="ts" x="95" y="140" text-anchor="middle">HTMLHint checks</text>
+<line x1="95" y1="64" x2="95" y2="98" class="arr" marker-end="url(#arrow)"/>
+
+<rect x="20" y="200" width="150" height="56" rx="8" class="purple"/>
+<text class="th" x="95" y="222" text-anchor="middle">Auth via OIDC</text>
+<text class="ts" x="95" y="240" text-anchor="middle">No stored keys</text>
+<line x1="95" y1="156" x2="95" y2="198" class="arr" marker-end="url(#arrow)"/>
+
+<rect x="255" y="200" width="150" height="56" rx="8" class="teal"/>
+<text class="th" x="330" y="222" text-anchor="middle">Sync to S3</text>
+<text class="ts" x="330" y="240" text-anchor="middle">Private bucket</text>
+<line x1="172" y1="228" x2="253" y2="228" class="arr" marker-end="url(#arrow)"/>
+
+<rect x="490" y="200" width="150" height="56" rx="8" class="teal"/>
+<text class="th" x="565" y="222" text-anchor="middle">Invalidate CDN</text>
+<text class="ts" x="565" y="240" text-anchor="middle">CloudFront cache</text>
+<line x1="407" y1="228" x2="488" y2="228" class="arr" marker-end="url(#arrow)"/>
+
+<rect x="490" y="320" width="150" height="56" rx="8" class="gray"/>
+<text class="th" x="565" y="342" text-anchor="middle">CloudFront</text>
+<text class="ts" x="565" y="360" text-anchor="middle">Public CDN, OAC</text>
+<line x1="565" y1="256" x2="565" y2="318" class="arr" marker-end="url(#arrow)"/>
+
+<rect x="255" y="320" width="150" height="56" rx="8" class="gray"/>
+<text class="th" x="330" y="342" text-anchor="middle">S3 bucket</text>
+<text class="ts" x="330" y="360" text-anchor="middle">Fully private</text>
+<line x1="330" y1="256" x2="330" y2="318" class="arr" marker-end="url(#arrow)"/>
+<line x1="405" y1="348" x2="488" y2="348" class="arr" marker-end="url(#arrow)"/>
+
+<rect x="490" y="400" width="150" height="44" rx="8" class="amber"/>
+<text class="th" x="565" y="426" text-anchor="middle">Visitor's browser</text>
+<line x1="565" y1="376" x2="565" y2="398" class="arr" marker-end="url(#arrow)"/>
+</svg>
